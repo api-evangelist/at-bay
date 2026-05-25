@@ -1,0 +1,47 @@
+specification: API Commons FinOps
+specificationVersion: '0.1'
+provider: At-Bay
+providerId: at-bay
+created: '2026-05-25'
+modified: '2026-05-25'
+tags:
+  - Insurance
+  - FinOps
+  - Insurtech
+description: >-
+  At-Bay's billing surface is the insurance policy premium, not API usage.
+  There is no consumption-based or per-call API pricing visible in public
+  documentation. FinOps alignment for At-Bay therefore focuses on per-
+  policy premium accounting and broker commission flows rather than
+  cloud-style resource metering.
+sources:
+  - https://www.at-bay.com/about/partnerships/
+  - https://www.at-bay.com/brokers/platform/
+focusAlignment:
+  billingPeriodStart: policy effective_date
+  billingPeriodEnd: policy expiration_date
+  resource: insurance_product
+  resourceType:
+    - CYB (Surplus Cyber)
+    - TEO (Surplus Tech E&O)
+    - MPL (Surplus Miscellaneous Professional Liability)
+  chargeCategory: insurance-premium
+  pricingModel: underwritten
+  pricingCurrency: USD
+  invoiceIssuer: At-Bay
+  costAllocation:
+    - by client / insured company
+    - by brokerage / agency
+    - by insurance product line
+billingSurfaces:
+  - name: Premium
+    source: bound policy
+    cadence: annual term (paid per the carrier's invoicing terms)
+    api_visibility: returned in GET /quotes/{quote_identifier} on policy_active
+  - name: Broker commission
+    source: contractual; not exposed via Partner API
+    cadence: per-bind
+notes: >-
+  Because pricing is per-submission and underwriter-driven, partners should
+  treat each bound policy as the unit of cost and reconcile premium against
+  the carrier statement rather than API call counts.

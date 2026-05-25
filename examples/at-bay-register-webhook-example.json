@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.at-bay.com/v2/webhooks",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://partner.example.com/at-bay/callback",
+      "events": [
+        "quote.updated",
+        "quote.bound",
+        "policy.activated",
+        "policy.expired"
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "webhook_id": "whk_01HZ4MB6P9G7K3J2N5VE1MQRZ8",
+      "url": "https://partner.example.com/at-bay/callback",
+      "events": [
+        "quote.updated",
+        "quote.bound",
+        "policy.activated",
+        "policy.expired"
+      ],
+      "created_at": "2026-05-25T14:22:31Z"
+    }
+  }
+}

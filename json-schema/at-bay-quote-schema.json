@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/at-bay/main/json-schema/at-bay-quote-schema.json",
+  "title": "At-Bay Quote",
+  "description": "Quote resource returned by the At-Bay Partner API (v2) for Surplus Cyber, Tech E&O, and MPL products.",
+  "type": "object",
+  "required": ["quote_identifier", "status", "insurance_product"],
+  "properties": {
+    "quote_identifier": {
+      "type": "string",
+      "description": "Unique identifier for the quote. Returned by POST /quotes and used as the polling key."
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Identifier for the insured company, returned alongside the quote."
+    },
+    "status": {
+      "type": "string",
+      "description": "Lifecycle status of the quote or downstream policy.",
+      "enum": [
+        "quote_pending",
+        "quote_referred",
+        "quote_open",
+        "quote_bind_requested",
+        "quote_declined",
+        "quote_expired",
+        "quote_revoked",
+        "quote_not_bound",
+        "policy_active",
+        "policy_cancelled",
+        "policy_expired"
+      ]
+    },
+    "insurance_product": {
+      "type": "string",
+      "enum": ["CYB", "TEO", "MPL"],
+      "description": "CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus Miscellaneous Professional Liability."
+    },
+    "premium": {
+      "type": "number",
+      "description": "Total premium in USD."
+    },
+    "coverage_limit": {
+      "type": "integer",
+      "description": "Coverage limit in USD."
+    },
+    "retention": {
+      "type": "integer",
+      "description": "Retention (deductible) in USD."
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "broker_of_record": {
+      "type": "object",
+      "properties": {
+        "broker_id": { "type": "string" },
+        "agency_id": { "type": "string" }
+      }
+    }
+  }
+}

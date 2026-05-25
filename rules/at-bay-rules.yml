@@ -1,0 +1,48 @@
+extends:
+  - spectral:oas
+rules:
+  operation-summary-title-case:
+    description: Operation summaries should use Title Case.
+    given: $.paths[*][*].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][A-Za-z0-9&]*\s?)+$'
+  operation-tag-set:
+    description: Every operation must have at least one tag.
+    given: $.paths[*][*]
+    severity: error
+    then:
+      field: tags
+      function: truthy
+  bearer-jwt-auth:
+    description: At-Bay uses HTTP bearer JWT auth on all operations.
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [bearerAuth]
+  v2-base-url:
+    description: Base URLs must point to the v2 API.
+    given: $.servers[*].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '.*at-bay\\.com\\/v2$'
+  insurance-product-enum:
+    description: The insurance_product field must be CYB, TEO, or MPL.
+    given: $..properties.insurance_product
+    severity: error
+    then:
+      field: enum
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            enum: [CYB, TEO, MPL]

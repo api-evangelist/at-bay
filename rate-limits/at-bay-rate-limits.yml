@@ -1,0 +1,48 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: At-Bay
+providerId: at-bay
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Insurance
+  - Rate Limiting
+  - Quotas
+description: >-
+  At-Bay's developer documentation references a rate-limit section under
+  Support, but does not publish numeric per-second or per-minute caps in
+  public docs. The Partner API is contract-gated and capacity is provisioned
+  per partner. Two operational throttles are documented in the public
+  quickstart: (1) recommended quote polling interval of every 10 seconds
+  against GET /quotes/{quote_identifier}, with typical p90 completion under
+  40 seconds; and (2) production Broker-of-Record (BOR) clearance which
+  blocks duplicate domains or addresses within a 60-day window.
+sources:
+  - https://developers.at-bay.com/docs/getting-started
+  - https://developers.at-bay.com/llms.txt
+headers: {}
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  borConflict: 409
+algorithm: contract-provisioned
+operationalThrottles:
+  - name: quote-polling-interval
+    target: GET /quotes/{quote_identifier}
+    recommendation: poll every 10 seconds
+    description: >-
+      Recommended polling cadence after submitting a quote; typical p90
+      quote completion is under 40 seconds.
+  - name: bor-clearance-window
+    target: POST /quotes (production only)
+    window: 60 days
+    description: >-
+      Production submissions sharing a client domain or address with a
+      prior submission within 60 days are blocked by At-Bay's Broker of
+      Record clearance process. Not enforced in the demo environment.
+limits: []
+notes: >-
+  Partners should email partnerships@at-bay.com for documented per-partner
+  request-per-minute and concurrent-quote caps applicable to their contract.

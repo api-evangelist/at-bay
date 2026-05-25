@@ -1,0 +1,151 @@
+aid: at-bay
+name: At-Bay
+description: >-
+  At-Bay is an InsurSec company that combines cyber insurance with proactive
+  security monitoring for businesses. Headquartered in New York with offices in
+  San Francisco and Tel Aviv, At-Bay underwrites Surplus Cyber, Surplus Tech
+  E&O, and Surplus Miscellaneous Professional Liability (MPL) coverage and
+  bundles them with the At-Bay Stance security platform (advisory, fraud
+  defense, incident response) and 24/7 Managed Detection and Response (MDR)
+  across endpoint, email (MXDR), and multi-vector surfaces. At-Bay distributes
+  through a network of independent brokers and partners and exposes a
+  production-grade REST Partner API (v2) that lets brokerage platforms,
+  digital distributors, and agency management systems quote, customize, bind,
+  renew, retrieve documents, and receive webhook callbacks for the full
+  policy lifecycle. Demo environment at api-demo.at-bay.com lets partners
+  integrate without going through Broker of Record clearance.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Insurance
+  - Cyber Insurance
+  - InsurSec
+  - Insurtech
+  - Tech E&O
+  - Professional Liability
+  - MPL
+  - Managed Detection And Response
+  - MDR
+  - Security Monitoring
+  - Email Security
+  - Endpoint Security
+  - Incident Response
+  - Brokers
+  - Quoting
+  - Binding
+  - Policy Lifecycle
+  - Webhooks
+url: https://raw.githubusercontent.com/api-evangelist/at-bay/refs/heads/main/apis.yml
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.20'
+apis:
+  - aid: at-bay:at-bay-partner-api
+    name: At-Bay Partner API
+    tags:
+      - Insurance
+      - Cyber Insurance
+      - Quoting
+      - Binding
+      - Policy Lifecycle
+    humanURL: https://developers.at-bay.com/docs/getting-started
+    baseURL: https://api.at-bay.com/v2
+    properties:
+      - url: https://developers.at-bay.com/docs/getting-started
+        type: Documentation
+      - url: https://developers.at-bay.com/reference
+        type: Reference
+      - url: https://developers.at-bay.com/llms.txt
+        type: LLMs
+      - url: openapi/at-bay-partner-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/at-bay-quote-schema.json
+        type: JSONSchema
+      - url: json-schema/at-bay-policy-schema.json
+        type: JSONSchema
+      - url: json-ld/at-bay-context.jsonld
+        type: JSONLD
+      - url: capabilities/quotes.yaml
+        type: NaftikoCapability
+      - url: capabilities/binding.yaml
+        type: NaftikoCapability
+      - url: capabilities/documents.yaml
+        type: NaftikoCapability
+      - url: capabilities/webhooks.yaml
+        type: NaftikoCapability
+      - url: capabilities/policies.yaml
+        type: NaftikoCapability
+    description: >-
+      End-to-end Partner REST API (v2) for the At-Bay quote-to-bind-to-renew
+      workflow. Supports three insurance products selected via the
+      `insurance_product` field on the policy object: CYB (Surplus Cyber),
+      TEO (Surplus Tech E&O), and MPL (Surplus MPL). Core operations: POST
+      /quotes to submit a new quote, GET /quotes/{quote_identifier} polled
+      every 10 seconds until status leaves `quote_pending` (typical p90
+      under 40 seconds), bind/referral/update operations, document upload
+      and download, auto-renewal pause, plus webhook registration and
+      verification for asynchronous status callbacks. JWT bearer
+      authentication; production at api.at-bay.com/v2 and demo at
+      api-demo.at-bay.com/v2. Production submissions are subject to
+      Broker-of-Record (BOR) clearance — duplicate domains/addresses within
+      60 days are blocked; the demo environment bypasses BOR.
+common:
+  - type: Website
+    url: https://www.at-bay.com
+  - type: DeveloperPortal
+    url: https://developers.at-bay.com
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: Partnerships
+    url: https://www.at-bay.com/about/partnerships/
+  - type: Brokers
+    url: https://www.at-bay.com/brokers/
+  - type: BrokerPlatform
+    url: https://www.at-bay.com/brokers/platform/
+  - type: Insurance
+    url: https://www.at-bay.com/insurance/
+  - type: CyberInsurance
+    url: https://www.at-bay.com/insurance/cyber/
+  - type: TechEO
+    url: https://www.at-bay.com/insurance/tech-eo/
+  - type: MPL
+    url: https://www.at-bay.com/insurance/mpl/
+  - type: Stance
+    url: https://www.at-bay.com/stance/
+  - type: MDR
+    url: https://www.at-bay.com/stance/mdr/
+  - type: IncidentResponse
+    url: https://www.at-bay.com/stance/incident-response/
+  - type: Newsroom
+    url: https://www.at-bay.com/news/
+  - type: About
+    url: https://www.at-bay.com/about/
+  - type: Careers
+    url: https://www.at-bay.com/careers/
+  - type: Contact
+    url: https://www.at-bay.com/contact/
+  - type: Login
+    url: https://platform.at-bay.com/
+  - type: GitHub
+    url: https://github.com/at-bay
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/at-bay-insurance
+  - type: Twitter
+    url: https://twitter.com/AtBayInsurance
+  - type: Plans
+    url: plans/at-bay-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/at-bay-rate-limits.yml
+  - type: FinOps
+    url: finops/at-bay-finops.yml
+  - type: Vocabulary
+    url: vocabulary/at-bay-vocabulary.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

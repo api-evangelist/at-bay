@@ -1,0 +1,438 @@
+openapi: 3.0.3
+info:
+  title: At-Bay Partner API
+  version: '2.0'
+  description: >-
+    REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber
+    (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional
+    Liability (MPL). Authenticated with a JWT bearer token. Quote creation is
+    asynchronous — POST /quotes returns a quote_identifier that is polled via
+    GET /quotes/{quote_identifier} every ~10 seconds until the status leaves
+    `quote_pending`. Production submissions are subject to At-Bay's
+    Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.
+  contact:
+    name: At-Bay Partnerships
+    email: partnerships@at-bay.com
+    url: https://developers.at-bay.com
+  termsOfService: https://www.at-bay.com/legal/
+servers:
+  - url: https://api.at-bay.com/v2
+    description: Production
+  - url: https://api-demo.at-bay.com/v2
+    description: Demo
+tags:
+  - name: Quotes
+    description: Create, poll, and bind insurance quotes.
+  - name: Documents
+    description: Upload submission documents and download generated policy documents.
+  - name: Policies
+    description: Manage bound policies including renewal behavior.
+  - name: Webhooks
+    description: Register webhook endpoints for asynchronous status callbacks.
+  - name: Health
+    description: API health check.
+paths:
+  /quotes:
+    post:
+      tags: [Quotes]
+      summary: Create A Quote
+      description: >-
+        Submit a new quote request for one of the supported insurance products
+        (CYB, TEO, or MPL). Returns a quote_identifier and company_id; poll
+        GET /quotes/{quote_identifier} every 10 seconds until status changes.
+      operationId: createQuote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+      responses:
+        '202':
+          description: Quote request accepted and queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteAck'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Submission blocked by Broker-of-Record clearance.
+  /quotes/{quote_identifier}:
+    get:
+      tags: [Quotes]
+      summary: Find A Quote
+      description: Retrieve current status and details for a quote.
+      operationId: getQuote
+      parameters:
+        - name: quote_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Quote details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /quotes/{quote_identifier}/bind:
+    post:
+      tags: [Quotes]
+      summary: Bind A Quote
+      description: Request binding of an open quote into an active policy.
+      operationId: bindQuote
+      parameters:
+        - name: quote_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BindRequest'
+      responses:
+        '202':
+          description: Bind request accepted; poll the quote for `policy_active`.
+        '409':
+          description: Quote not in a bindable status.
+  /quotes/{quote_identifier}/documents:
+    get:
+      tags: [Documents]
+      summary: Get Quote Documents Metadata
+      description: List documents available for a quote at its current status.
+      operationId: listQuoteDocuments
+      parameters:
+        - name: quote_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document metadata list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+  /quotes/{quote_identifier}/documents/{document_id}:
+    get:
+      tags: [Documents]
+      summary: Download Quote Document
+      description: Download a single document for the given quote.
+      operationId: downloadQuoteDocument
+      parameters:
+        - name: quote_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Binary document payload.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /documents:
+    post:
+      tags: [Documents]
+      summary: Upload A Document
+      description: Upload supporting documents for a quote (loss runs, applications, etc.).
+      operationId: uploadDocument
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                quote_identifier:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Document uploaded.
+  /policies/{policy_id}/pause-auto-renewal:
+    post:
+      tags: [Policies]
+      summary: Pause Auto Renewal
+      description: >-
+        Change the allowed renewal type of the given policy to manual so no
+        auto-renewal will be created.
+      operationId: pauseAutoRenewal
+      parameters:
+        - name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Auto-renewal paused.
+  /webhooks:
+    get:
+      tags: [Webhooks]
+      summary: List Webhooks
+      description: Get information about registered webhooks for the partner.
+      operationId: listWebhooks
+      responses:
+        '200':
+          description: Registered webhooks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+    post:
+      tags: [Webhooks]
+      summary: Register A Webhook
+      description: Register a callback URL for asynchronous quote and policy status events.
+      operationId: registerWebhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRegistration'
+      responses:
+        '201':
+          description: Webhook registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+  /webhooks/{webhook_id}:
+    delete:
+      tags: [Webhooks]
+      summary: Unregister A Webhook
+      description: Remove a previously registered webhook.
+      operationId: unregisterWebhook
+      parameters:
+        - name: webhook_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Webhook removed.
+  /webhooks/secret:
+    put:
+      tags: [Webhooks]
+      summary: Set Webhook Secret
+      description: Rotate or set the shared secret used to sign webhook callbacks.
+      operationId: setWebhookSecret
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                secret:
+                  type: string
+      responses:
+        '200':
+          description: Secret updated.
+  /health:
+    get:
+      tags: [Health]
+      summary: Health Check
+      description: Lightweight liveness probe for the API.
+      operationId: getHealth
+      responses:
+        '200':
+          description: API is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: Request payload validation failed.
+    Unauthorized:
+      description: Missing or invalid bearer token.
+    NotFound:
+      description: Resource not found.
+  schemas:
+    QuoteRequest:
+      type: object
+      required: [client, policy]
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+        policy:
+          $ref: '#/components/schemas/PolicyDetails'
+        broker:
+          $ref: '#/components/schemas/Broker'
+    Client:
+      type: object
+      properties:
+        name:
+          type: string
+        domain:
+          type: string
+        revenue:
+          type: number
+        industry_code:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+    PolicyDetails:
+      type: object
+      required: [insurance_product]
+      properties:
+        insurance_product:
+          type: string
+          enum: [CYB, TEO, MPL]
+          description: CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus MPL.
+        effective_date:
+          type: string
+          format: date
+        coverage_limit:
+          type: integer
+        retention:
+          type: integer
+    Broker:
+      type: object
+      properties:
+        broker_id:
+          type: string
+        agency_id:
+          type: string
+    QuoteAck:
+      type: object
+      properties:
+        quote_identifier:
+          type: string
+        company_id:
+          type: string
+        status:
+          type: string
+          example: quote_pending
+    Quote:
+      type: object
+      properties:
+        quote_identifier:
+          type: string
+        company_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - quote_pending
+            - quote_referred
+            - quote_open
+            - quote_bind_requested
+            - quote_declined
+            - quote_expired
+            - quote_revoked
+            - quote_not_bound
+            - policy_active
+            - policy_cancelled
+            - policy_expired
+        insurance_product:
+          type: string
+          enum: [CYB, TEO, MPL]
+        premium:
+          type: number
+        coverage_limit:
+          type: integer
+        retention:
+          type: integer
+        effective_date:
+          type: string
+          format: date
+        expiration_date:
+          type: string
+          format: date
+    BindRequest:
+      type: object
+      properties:
+        effective_date:
+          type: string
+          format: date
+        accepted_terms:
+          type: boolean
+    Document:
+      type: object
+      properties:
+        document_id:
+          type: string
+        type:
+          type: string
+          description: e.g. application, quote-letter, policy, binder, endorsement, invoice.
+        filename:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    WebhookRegistration:
+      type: object
+      required: [url, events]
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            description: e.g. quote.updated, quote.bound, policy.activated, policy.expired.
+    Webhook:
+      type: object
+      properties:
+        webhook_id:
+          type: string
+        url:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+security:
+  - bearerAuth: []

@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api-demo.at-bay.com/v2/quotes",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client": {
+        "name": "Acme Widgets, Inc.",
+        "domain": "acmewidgets.com",
+        "revenue": 12500000,
+        "industry_code": "541512",
+        "address": {
+          "line1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "zip": "78701"
+        }
+      },
+      "policy": {
+        "insurance_product": "CYB",
+        "effective_date": "2026-06-01",
+        "coverage_limit": 1000000,
+        "retention": 10000
+      },
+      "broker": {
+        "broker_id": "brk_abc123",
+        "agency_id": "agy_xyz789"
+      }
+    }
+  },
+  "response": {
+    "status": 202,
+    "body": {
+      "quote_identifier": "qte_01HZ4K9G5R7H2W8N4VE3MQXB6T",
+      "company_id": "co_01HZ4K9G5R7H2W8N4VE3MQXB6U",
+      "status": "quote_pending"
+    }
+  }
+}

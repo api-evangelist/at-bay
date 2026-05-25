@@ -1,0 +1,32 @@
+{
+  "name": "AtBayQuote",
+  "version": "v2",
+  "description": "Structural breakdown of the At-Bay Quote resource as exchanged via the Partner API.",
+  "fields": [
+    { "name": "quote_identifier", "type": "string", "required": true, "description": "Stable polling key for the quote." },
+    { "name": "company_id", "type": "string", "required": true, "description": "Identifier for the insured company." },
+    { "name": "status", "type": "enum", "required": true, "values": [
+        "quote_pending", "quote_referred", "quote_open", "quote_bind_requested",
+        "quote_declined", "quote_expired", "quote_revoked", "quote_not_bound",
+        "policy_active", "policy_cancelled", "policy_expired"
+      ]
+    },
+    { "name": "insurance_product", "type": "enum", "required": true, "values": ["CYB", "TEO", "MPL"] },
+    { "name": "premium", "type": "number", "required": false },
+    { "name": "coverage_limit", "type": "integer", "required": false },
+    { "name": "retention", "type": "integer", "required": false },
+    { "name": "effective_date", "type": "date", "required": false },
+    { "name": "expiration_date", "type": "date", "required": false },
+    { "name": "broker_of_record", "type": "object", "required": false, "subfields": [
+        { "name": "broker_id", "type": "string" },
+        { "name": "agency_id", "type": "string" }
+      ]
+    }
+  ],
+  "lifecycle": {
+    "create": "POST /quotes returns quote_identifier with status=quote_pending",
+    "poll": "GET /quotes/{quote_identifier} every ~10s until status leaves quote_pending",
+    "bind": "POST /quotes/{quote_identifier}/bind transitions to quote_bind_requested then policy_active",
+    "renewal": "Auto unless paused via POST /policies/{policy_id}/pause-auto-renewal"
+  }
+}

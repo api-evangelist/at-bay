@@ -1,0 +1,76 @@
+vocabulary: At-Bay
+providerId: at-bay
+created: '2026-05-25'
+modified: '2026-05-25'
+description: >-
+  Operational and capability vocabulary for At-Bay's Partner API and InsurSec
+  product surface. Maps the lifecycle terms used in API payloads to broader
+  insurance, distribution, and security-operations concepts.
+domains:
+  - name: Insurance
+    terms:
+      - Cyber Insurance
+      - Tech E&O
+      - Miscellaneous Professional Liability
+      - Surplus Lines
+      - Premium
+      - Coverage Limit
+      - Retention
+      - Endorsement
+      - Binder
+      - Policy Term
+  - name: Distribution
+    terms:
+      - Broker
+      - Brokerage
+      - Agency Management System
+      - White Label
+      - Branded Platform
+      - Broker of Record
+      - BOR Clearance
+      - Quote-to-Bind
+      - Renewal
+  - name: API
+    terms:
+      - Quote
+      - Bind
+      - Referral
+      - Submission
+      - Document Upload
+      - Document Download
+      - Webhook
+      - Polling
+      - JWT Bearer Authentication
+      - Demo Environment
+      - Production Environment
+  - name: Security
+    terms:
+      - InsurSec
+      - Stance
+      - Managed Detection and Response
+      - MDR
+      - MXDR
+      - Endpoint Detection
+      - Email Security
+      - Fraud Defense
+      - Incident Response
+      - Advisory
+quoteStatuses:
+  - quote_pending
+  - quote_referred
+  - quote_open
+  - quote_bind_requested
+  - quote_declined
+  - quote_expired
+  - quote_revoked
+  - quote_not_bound
+  - policy_active
+  - policy_cancelled
+  - policy_expired
+insuranceProducts:
+  - code: CYB
+    name: Surplus Cyber
+  - code: TEO
+    name: Surplus Tech E&O
+  - code: MPL
+    name: Surplus Miscellaneous Professional Liability

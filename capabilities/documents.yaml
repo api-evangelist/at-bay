@@ -1,0 +1,117 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: At-Bay Partner API — Documents
+  description: >-
+    At-Bay Partner API — Documents. Upload supporting submission documents,
+    list document metadata for a quote, and download generated documents
+    (quote letters, policies, binders, endorsements).
+  tags:
+    - At-Bay
+    - Documents
+    - Insurance
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      AT_BAY_TOKEN: AT_BAY_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: documents
+      baseUri: https://api.at-bay.com/v2
+      description: At-Bay Partner API document endpoints.
+      resources:
+        - name: documents
+          path: /documents
+          operations:
+            - name: uploadDocument
+              method: POST
+              description: Upload A Document
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+        - name: quote-documents
+          path: /quotes/{quote_identifier}/documents
+          operations:
+            - name: listQuoteDocuments
+              method: GET
+              description: Get Quote Documents Metadata
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: $.
+              inputParameters:
+                - name: quote_identifier
+                  in: path
+                  type: string
+                  required: true
+        - name: quote-document
+          path: /quotes/{quote_identifier}/documents/{document_id}
+          operations:
+            - name: downloadQuoteDocument
+              method: GET
+              description: Download Quote Document
+              outputRawFormat: binary
+              outputParameters:
+                - name: result
+                  type: binary
+                  value: $.
+              inputParameters:
+                - name: quote_identifier
+                  in: path
+                  type: string
+                  required: true
+                - name: document_id
+                  in: path
+                  type: string
+                  required: true
+      authentication:
+        type: bearer
+        value: '{{env.AT_BAY_TOKEN}}'
+        placement: header
+  exposes:
+    - type: rest
+      namespace: documents-rest
+      port: 8080
+      description: REST adapter for At-Bay document operations.
+      resources:
+        - path: /v1/documents
+          name: documents
+          description: Upload submission documents.
+          operations:
+            - method: POST
+              name: uploadDocument
+              description: Upload A Document
+              call: documents.uploadDocument
+              with:
+                body: rest.body
+        - path: /v1/quotes/{quote_identifier}/documents
+          name: quote-documents
+          description: List documents for a quote.
+          operations:
+            - method: GET
+              name: listQuoteDocuments
+              description: Get Quote Documents Metadata
+              call: documents.listQuoteDocuments
+              with:
+                quote_identifier: rest.path.quote_identifier
+        - path: /v1/quotes/{quote_identifier}/documents/{document_id}
+          name: quote-document
+          description: Download a single document.
+          operations:
+            - method: GET
+              name: downloadQuoteDocument
+              description: Download Quote Document
+              call: documents.downloadQuoteDocument
+              with:
+                quote_identifier: rest.path.quote_identifier
+                document_id: rest.path.document_id

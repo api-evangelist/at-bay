@@ -1,0 +1,85 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: At-Bay
+providerId: at-bay
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Insurance
+  - Cyber Insurance
+  - Tech E&O
+  - MPL
+description: >-
+  At-Bay does not publish list pricing for partner API access. Access is
+  partnership-gated via partnerships@at-bay.com / digital@at-bay.com. The
+  commercial product is the insurance policy itself — premium is underwriter-
+  and submission-dependent. Insurance premiums vary by industry, revenue,
+  coverage limit, retention, and risk profile. This file enumerates the
+  insurance product surface; cost data must be sourced from a bound quote.
+sources:
+  - https://www.at-bay.com/about/partnerships/
+  - https://www.at-bay.com/brokers/platform/
+  - https://developers.at-bay.com/
+plans:
+  - id: partner-api-access
+    name: Partner API Access
+    type: partnership
+    description: >-
+      White-label / branded platform access to the At-Bay v2 REST API.
+      Onboarding includes a demo environment (api-demo.at-bay.com) and a
+      designated partnership success lead. Contact partnerships@at-bay.com.
+    entries:
+      - label: API access
+        name: api_access
+        type: contact-sales
+        metric: contract
+        timeFrame: annual
+        geo: US
+        unit: 1
+        price: 'Contact Sales'
+        description: Partner contract required; no public pricing.
+  - id: surplus-cyber
+    name: Surplus Cyber Insurance
+    type: insurance-policy
+    description: >-
+      Surplus-lines cyber insurance policy. Premium is quoted per submission;
+      bindable in under 2 minutes for businesses up to $100M revenue; up to
+      $5B revenue with underwriter approval.
+    entries:
+      - label: Premium
+        name: premium
+        type: quoted
+        metric: policy
+        timeFrame: annual
+        geo: US
+        unit: 1
+        price: 'Quoted'
+        description: Per-submission premium determined by underwriting.
+  - id: surplus-tech-eo
+    name: Surplus Tech E&O Insurance
+    type: insurance-policy
+    description: Surplus-lines technology errors & omissions coverage.
+    entries:
+      - label: Premium
+        name: premium
+        type: quoted
+        metric: policy
+        timeFrame: annual
+        geo: US
+        unit: 1
+        price: 'Quoted'
+  - id: surplus-mpl
+    name: Surplus MPL Insurance
+    type: insurance-policy
+    description: Surplus-lines miscellaneous professional liability coverage.
+    entries:
+      - label: Premium
+        name: premium
+        type: quoted
+        metric: policy
+        timeFrame: annual
+        geo: US
+        unit: 1
+        price: 'Quoted'

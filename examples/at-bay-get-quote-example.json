@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api-demo.at-bay.com/v2/quotes/qte_01HZ4K9G5R7H2W8N4VE3MQXB6T",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "quote_identifier": "qte_01HZ4K9G5R7H2W8N4VE3MQXB6T",
+      "company_id": "co_01HZ4K9G5R7H2W8N4VE3MQXB6U",
+      "status": "quote_open",
+      "insurance_product": "CYB",
+      "premium": 4850.00,
+      "coverage_limit": 1000000,
+      "retention": 10000,
+      "effective_date": "2026-06-01",
+      "expiration_date": "2027-06-01"
+    }
+  }
+}

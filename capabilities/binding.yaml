@@ -1,0 +1,64 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: At-Bay Partner API — Binding
+  description: >-
+    At-Bay Partner API — Binding. Submit a bind request against an open quote
+    so it can become an active policy. Self-contained Naftiko capability.
+  tags:
+    - At-Bay
+    - Binding
+    - Insurance
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      AT_BAY_TOKEN: AT_BAY_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: binding
+      baseUri: https://api.at-bay.com/v2
+      description: At-Bay bind endpoint.
+      resources:
+        - name: bind-quote
+          path: /quotes/{quote_identifier}/bind
+          operations:
+            - name: bindQuote
+              method: POST
+              description: Bind A Quote
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: quote_identifier
+                  in: path
+                  type: string
+                  required: true
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+      authentication:
+        type: bearer
+        value: '{{env.AT_BAY_TOKEN}}'
+        placement: header
+  exposes:
+    - type: rest
+      namespace: binding-rest
+      port: 8080
+      description: REST adapter for At-Bay binding.
+      resources:
+        - path: /v1/quotes/{quote_identifier}/bind
+          name: bind-quote
+          description: REST surface for binding a quote.
+          operations:
+            - method: POST
+              name: bindQuote
+              description: Bind A Quote
+              call: binding.bindQuote
+              with:
+                quote_identifier: rest.path.quote_identifier
+                body: rest.body

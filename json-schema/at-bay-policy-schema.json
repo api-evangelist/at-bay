@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/at-bay/main/json-schema/at-bay-policy-schema.json",
+  "title": "At-Bay Policy",
+  "description": "Bound policy resource for Surplus Cyber, Tech E&O, or MPL coverage issued by At-Bay.",
+  "type": "object",
+  "required": ["policy_id", "insurance_product", "status"],
+  "properties": {
+    "policy_id": { "type": "string" },
+    "quote_identifier": { "type": "string" },
+    "company_id": { "type": "string" },
+    "insurance_product": {
+      "type": "string",
+      "enum": ["CYB", "TEO", "MPL"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["policy_active", "policy_cancelled", "policy_expired"]
+    },
+    "renewal_type": {
+      "type": "string",
+      "enum": ["auto", "manual"],
+      "description": "Auto-renewal generates a renewal quote automatically; manual must be initiated by the broker."
+    },
+    "conditional_binding": {
+      "type": "boolean",
+      "description": "True when the policy is active subject to contingency fulfillment within 30 days."
+    },
+    "premium": { "type": "number" },
+    "coverage_limit": { "type": "integer" },
+    "retention": { "type": "integer" },
+    "effective_date": { "type": "string", "format": "date" },
+    "expiration_date": { "type": "string", "format": "date" },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "document_id": { "type": "string" },
+          "type": { "type": "string" },
+          "filename": { "type": "string" }
+        }
+      }
+    }
+  }
+}
