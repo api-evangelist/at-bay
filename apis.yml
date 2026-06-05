@@ -1,19 +1,15 @@
 aid: at-bay
 name: At-Bay
 description: >-
-  At-Bay is an InsurSec company that combines cyber insurance with proactive
-  security monitoring for businesses. Headquartered in New York with offices in
-  San Francisco and Tel Aviv, At-Bay underwrites Surplus Cyber, Surplus Tech
-  E&O, and Surplus Miscellaneous Professional Liability (MPL) coverage and
-  bundles them with the At-Bay Stance security platform (advisory, fraud
-  defense, incident response) and 24/7 Managed Detection and Response (MDR)
-  across endpoint, email (MXDR), and multi-vector surfaces. At-Bay distributes
-  through a network of independent brokers and partners and exposes a
-  production-grade REST Partner API (v2) that lets brokerage platforms,
-  digital distributors, and agency management systems quote, customize, bind,
-  renew, retrieve documents, and receive webhook callbacks for the full
-  policy lifecycle. Demo environment at api-demo.at-bay.com lets partners
-  integrate without going through Broker of Record clearance.
+  At-Bay is an InsurSec company that combines cyber insurance with proactive security monitoring for businesses.
+  Headquartered in New York with offices in San Francisco and Tel Aviv, At-Bay underwrites Surplus Cyber, Surplus Tech
+  E&O, and Surplus Miscellaneous Professional Liability (MPL) coverage and bundles them with the At-Bay Stance security
+  platform (advisory, fraud defense, incident response) and 24/7 Managed Detection and Response (MDR) across endpoint,
+  email (MXDR), and multi-vector surfaces. At-Bay distributes through a network of independent brokers and partners and
+  exposes a production-grade REST Partner API (v2) that lets brokerage platforms, digital distributors, and agency
+  management systems quote, customize, bind, renew, retrieve documents, and receive webhook callbacks for the full
+  policy lifecycle. Demo environment at api-demo.at-bay.com lets partners integrate without going through Broker of
+  Record clearance.
 type: Index
 position: Provider
 access: 3rd-Party
@@ -67,30 +63,15 @@ apis:
         type: JSONSchema
       - url: json-ld/at-bay-context.jsonld
         type: JSONLD
-      - url: capabilities/quotes.yaml
-        type: NaftikoCapability
-      - url: capabilities/binding.yaml
-        type: NaftikoCapability
-      - url: capabilities/documents.yaml
-        type: NaftikoCapability
-      - url: capabilities/webhooks.yaml
-        type: NaftikoCapability
-      - url: capabilities/policies.yaml
-        type: NaftikoCapability
     description: >-
-      End-to-end Partner REST API (v2) for the At-Bay quote-to-bind-to-renew
-      workflow. Supports three insurance products selected via the
-      `insurance_product` field on the policy object: CYB (Surplus Cyber),
-      TEO (Surplus Tech E&O), and MPL (Surplus MPL). Core operations: POST
-      /quotes to submit a new quote, GET /quotes/{quote_identifier} polled
-      every 10 seconds until status leaves `quote_pending` (typical p90
-      under 40 seconds), bind/referral/update operations, document upload
-      and download, auto-renewal pause, plus webhook registration and
-      verification for asynchronous status callbacks. JWT bearer
-      authentication; production at api.at-bay.com/v2 and demo at
-      api-demo.at-bay.com/v2. Production submissions are subject to
-      Broker-of-Record (BOR) clearance — duplicate domains/addresses within
-      60 days are blocked; the demo environment bypasses BOR.
+      End-to-end Partner REST API (v2) for the At-Bay quote-to-bind-to-renew workflow. Supports three insurance products
+      selected via the `insurance_product` field on the policy object: CYB (Surplus Cyber), TEO (Surplus Tech E&O), and
+      MPL (Surplus MPL). Core operations: POST /quotes to submit a new quote, GET /quotes/{quote_identifier} polled
+      every 10 seconds until status leaves `quote_pending` (typical p90 under 40 seconds), bind/referral/update
+      operations, document upload and download, auto-renewal pause, plus webhook registration and verification for
+      asynchronous status callbacks. JWT bearer authentication; production at api.at-bay.com/v2 and demo at
+      api-demo.at-bay.com/v2. Production submissions are subject to Broker-of-Record (BOR) clearance — duplicate
+      domains/addresses within 60 days are blocked; the demo environment bypasses BOR.
 common:
   - type: Website
     url: https://www.at-bay.com
