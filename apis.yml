@@ -73,6 +73,10 @@ apis:
       api-demo.at-bay.com/v2. Production submissions are subject to Broker-of-Record (BOR) clearance — duplicate
       domains/addresses within 60 days are blocked; the demo environment bypasses BOR.
 common:
+  - type: DomainSecurity
+    url: security/at-bay-domain-security.yml
+  - type: Authentication
+    url: authentication/at-bay-authentication.yml
   - type: Website
     url: https://www.at-bay.com
   - type: DeveloperPortal
