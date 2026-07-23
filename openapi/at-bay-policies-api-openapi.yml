@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: At-Bay Partner Documents Policies API
+  version: '2.0'
+  description: REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.
+  contact:
+    name: At-Bay Partnerships
+    email: partnerships@at-bay.com
+    url: https://developers.at-bay.com
+  termsOfService: https://www.at-bay.com/legal/
+servers:
+- url: https://api.at-bay.com/v2
+  description: Production
+- url: https://api-demo.at-bay.com/v2
+  description: Demo
+security:
+- bearerAuth: []
+tags:
+- name: Policies
+  description: Manage bound policies including renewal behavior.
+paths:
+  /policies/{policy_id}/pause-auto-renewal:
+    post:
+      tags:
+      - Policies
+      summary: Pause Auto Renewal
+      description: Change the allowed renewal type of the given policy to manual so no auto-renewal will be created.
+      operationId: pauseAutoRenewal
+      parameters:
+      - name: policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Auto-renewal paused.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

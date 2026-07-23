@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: At-Bay Partner Documents API
+  version: '2.0'
+  description: REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.
+  contact:
+    name: At-Bay Partnerships
+    email: partnerships@at-bay.com
+    url: https://developers.at-bay.com
+  termsOfService: https://www.at-bay.com/legal/
+servers:
+- url: https://api.at-bay.com/v2
+  description: Production
+- url: https://api-demo.at-bay.com/v2
+  description: Demo
+security:
+- bearerAuth: []
+tags:
+- name: Documents
+  description: Upload submission documents and download generated policy documents.
+paths:
+  /quotes/{quote_identifier}/documents:
+    get:
+      tags:
+      - Documents
+      summary: Get Quote Documents Metadata
+      description: List documents available for a quote at its current status.
+      operationId: listQuoteDocuments
+      parameters:
+      - name: quote_identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document metadata list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+  /quotes/{quote_identifier}/documents/{document_id}:
+    get:
+      tags:
+      - Documents
+      summary: Download Quote Document
+      description: Download a single document for the given quote.
+      operationId: downloadQuoteDocument
+      parameters:
+      - name: quote_identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Binary document payload.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /documents:
+    post:
+      tags:
+      - Documents
+      summary: Upload A Document
+      description: Upload supporting documents for a quote (loss runs, applications, etc.).
+      operationId: uploadDocument
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                quote_identifier:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Document uploaded.
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        document_id:
+          type: string
+        type:
+          type: string
+          description: e.g. application, quote-letter, policy, binder, endorsement, invoice.
+        filename:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

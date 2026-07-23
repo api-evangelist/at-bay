@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: At-Bay Partner Documents Health API
+  version: '2.0'
+  description: REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.
+  contact:
+    name: At-Bay Partnerships
+    email: partnerships@at-bay.com
+    url: https://developers.at-bay.com
+  termsOfService: https://www.at-bay.com/legal/
+servers:
+- url: https://api.at-bay.com/v2
+  description: Production
+- url: https://api-demo.at-bay.com/v2
+  description: Demo
+security:
+- bearerAuth: []
+tags:
+- name: Health
+  description: API health check.
+paths:
+  /health:
+    get:
+      tags:
+      - Health
+      summary: Health Check
+      description: Lightweight liveness probe for the API.
+      operationId: getHealth
+      responses:
+        '200':
+          description: API is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
