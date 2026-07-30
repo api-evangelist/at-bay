@@ -11,9 +11,22 @@ description: >-
   policy lifecycle. Demo environment at api-demo.at-bay.com lets partners integrate without going through Broker of
   Record clearance.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/at-bay.png
 tags:
   - Insurance
   - Cyber Insurance
@@ -38,40 +51,116 @@ created: '2026-05-25'
 modified: '2026-05-25'
 specificationVersion: '0.20'
 apis:
-  - aid: at-bay:at-bay-partner-api
-    name: At-Bay Partner API
-    tags:
-      - Insurance
-      - Cyber Insurance
-      - Quoting
-      - Binding
-      - Policy Lifecycle
-    humanURL: https://developers.at-bay.com/docs/getting-started
-    baseURL: https://api.at-bay.com/v2
-    properties:
-      - url: https://developers.at-bay.com/docs/getting-started
-        type: Documentation
-      - url: https://developers.at-bay.com/reference
-        type: Reference
-      - url: https://developers.at-bay.com/llms.txt
-        type: LLMs
-      - url: openapi/at-bay-partner-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/at-bay-quote-schema.json
-        type: JSONSchema
-      - url: json-schema/at-bay-policy-schema.json
-        type: JSONSchema
-      - url: json-ld/at-bay-context.jsonld
-        type: JSONLD
-    description: >-
-      End-to-end Partner REST API (v2) for the At-Bay quote-to-bind-to-renew workflow. Supports three insurance products
-      selected via the `insurance_product` field on the policy object: CYB (Surplus Cyber), TEO (Surplus Tech E&O), and
-      MPL (Surplus MPL). Core operations: POST /quotes to submit a new quote, GET /quotes/{quote_identifier} polled
-      every 10 seconds until status leaves `quote_pending` (typical p90 under 40 seconds), bind/referral/update
-      operations, document upload and download, auto-renewal pause, plus webhook registration and verification for
-      asynchronous status callbacks. JWT bearer authentication; production at api.at-bay.com/v2 and demo at
-      api-demo.at-bay.com/v2. Production submissions are subject to Broker-of-Record (BOR) clearance — duplicate
-      domains/addresses within 60 days are blocked; the demo environment bypasses BOR.
+- aid: at-bay:at-bay-documents-api
+  name: At-Bay Documents API
+  description: Upload submission documents and download generated policy documents.
+  humanURL: https://developers.at-bay.com/docs/getting-started
+  baseURL: https://api.at-bay.com/v2
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/at-bay-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/at-bay-quote-schema.json
+  - type: JSONSchema
+    url: json-schema/at-bay-policy-schema.json
+  - type: JSONLD
+    url: json-ld/at-bay-context.jsonld
+- aid: at-bay:at-bay-health-api
+  name: At-Bay Health API
+  description: API health check.
+  humanURL: https://developers.at-bay.com/docs/getting-started
+  baseURL: https://api.at-bay.com/v2
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/at-bay-health-api-openapi.yml
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/at-bay-quote-schema.json
+  - type: JSONSchema
+    url: json-schema/at-bay-policy-schema.json
+  - type: JSONLD
+    url: json-ld/at-bay-context.jsonld
+- aid: at-bay:at-bay-policies-api
+  name: At-Bay Policies API
+  description: Manage bound policies including renewal behavior.
+  humanURL: https://developers.at-bay.com/docs/getting-started
+  baseURL: https://api.at-bay.com/v2
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/at-bay-policies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/at-bay-quote-schema.json
+  - type: JSONSchema
+    url: json-schema/at-bay-policy-schema.json
+  - type: JSONLD
+    url: json-ld/at-bay-context.jsonld
+- aid: at-bay:at-bay-quotes-api
+  name: At-Bay Quotes API
+  description: Create, poll, and bind insurance quotes.
+  humanURL: https://developers.at-bay.com/docs/getting-started
+  baseURL: https://api.at-bay.com/v2
+  tags:
+  - Quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/at-bay-quotes-api-openapi.yml
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/at-bay-quote-schema.json
+  - type: JSONSchema
+    url: json-schema/at-bay-policy-schema.json
+  - type: JSONLD
+    url: json-ld/at-bay-context.jsonld
+- aid: at-bay:at-bay-webhooks-api
+  name: At-Bay Webhooks API
+  description: Register webhook endpoints for asynchronous status callbacks.
+  humanURL: https://developers.at-bay.com/docs/getting-started
+  baseURL: https://api.at-bay.com/v2
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/at-bay-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.at-bay.com/docs/getting-started
+  - type: Reference
+    url: https://developers.at-bay.com/reference
+  - type: LLMs
+    url: https://developers.at-bay.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/at-bay-quote-schema.json
+  - type: JSONSchema
+    url: json-schema/at-bay-policy-schema.json
+  - type: JSONLD
+    url: json-ld/at-bay-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/at-bay-agentic-access.yml
