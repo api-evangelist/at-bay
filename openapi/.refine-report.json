@@ -1,0 +1,22 @@
+{
+  "provider": "at-bay",
+  "sources": [
+    "at-bay-documents-api-openapi.yml",
+    "at-bay-health-api-openapi.yml",
+    "at-bay-policies-api-openapi.yml",
+    "at-bay-quotes-api-openapi.yml",
+    "at-bay-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "at-bay-documents-api-openapi.yml",
+    "at-bay-health-api-openapi.yml",
+    "at-bay-policies-api-openapi.yml",
+    "at-bay-quotes-api-openapi.yml",
+    "at-bay-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
