@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "At-Bay Partner Documents Quotes API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create A Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.at-bay.com/v2/quotes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a new quote request for one of the supported insurance products (CYB, TEO, or MPL). Returns a quote_identifier and company_id; poll GET /quotes/{quote_identifier} every 10 seconds until status changes."
+        },
+        {
+          "info": {
+            "name": "Find A Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.at-bay.com/v2/quotes/:quote_identifier",
+            "params": [
+              {
+                "name": "quote_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve current status and details for a quote."
+        },
+        {
+          "info": {
+            "name": "Bind A Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.at-bay.com/v2/quotes/:quote_identifier/bind",
+            "params": [
+              {
+                "name": "quote_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request binding of an open quote into an active policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

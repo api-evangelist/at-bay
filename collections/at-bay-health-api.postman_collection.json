@@ -1,0 +1,119 @@
+{
+  "item": [
+    {
+      "id": "a00030f5-f4c0-47a9-8d9e-4693bb9b5295",
+      "name": "Health",
+      "description": {
+        "content": "API health check.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bfe3cc5-dd3f-4967-bc66-53e99a179638",
+          "name": "Health Check",
+          "request": {
+            "name": "Health Check",
+            "description": {
+              "content": "Lightweight liveness probe for the API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3329e84-a735-4a51-a989-45cf8912f8e3",
+              "name": "API is healthy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.at-bay.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43029353-9266-45cf-908d-f3f1fd52aabf",
+    "name": "At-Bay Partner Documents Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.\n\nContact Support:\n Name: At-Bay Partnerships\n Email: partnerships@at-bay.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "At-Bay Partner Documents API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Quote Documents Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.at-bay.com/v2/quotes/:quote_identifier/documents",
+            "params": [
+              {
+                "name": "quote_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List documents available for a quote at its current status."
+        },
+        {
+          "info": {
+            "name": "Download Quote Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.at-bay.com/v2/quotes/:quote_identifier/documents/:document_id",
+            "params": [
+              {
+                "name": "quote_identifier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download a single document for the given quote."
+        },
+        {
+          "info": {
+            "name": "Upload A Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.at-bay.com/v2/documents",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "quote_identifier",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload supporting documents for a quote (loss runs, applications, etc.)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

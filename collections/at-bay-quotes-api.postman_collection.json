@@ -1,0 +1,593 @@
+{
+  "item": [
+    {
+      "id": "232a96a8-4c61-4793-93ad-61a4ca152cca",
+      "name": "Quotes",
+      "description": {
+        "content": "Create, poll, and bind insurance quotes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c0882089-0ae7-4daa-9f93-4ab7555fde07",
+          "name": "Create A Quote",
+          "request": {
+            "name": "Create A Quote",
+            "description": {
+              "content": "Submit a new quote request for one of the supported insurance products (CYB, TEO, or MPL). Returns a quote_identifier and company_id; poll GET /quotes/{quote_identifier} every 10 seconds until status changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client\": {\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"revenue\": \"<number>\",\n    \"industry_code\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\"\n    }\n  },\n  \"policy\": {\n    \"insurance_product\": \"<string>\",\n    \"effective_date\": \"<date>\",\n    \"coverage_limit\": \"<integer>\",\n    \"retention\": \"<integer>\"\n  },\n  \"broker\": {\n    \"broker_id\": \"<string>\",\n    \"agency_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "669ab804-442a-40d2-a864-16bcc37692b1",
+              "name": "Quote request accepted and queued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client\": {\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"revenue\": \"<number>\",\n    \"industry_code\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\"\n    }\n  },\n  \"policy\": {\n    \"insurance_product\": \"<string>\",\n    \"effective_date\": \"<date>\",\n    \"coverage_limit\": \"<integer>\",\n    \"retention\": \"<integer>\"\n  },\n  \"broker\": {\n    \"broker_id\": \"<string>\",\n    \"agency_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quote_identifier\": \"string\",\n  \"company_id\": \"string\",\n  \"status\": \"quote_pending\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "729eea35-c294-4524-bb60-92cf9da73ea7",
+              "name": "Request payload validation failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client\": {\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"revenue\": \"<number>\",\n    \"industry_code\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\"\n    }\n  },\n  \"policy\": {\n    \"insurance_product\": \"<string>\",\n    \"effective_date\": \"<date>\",\n    \"coverage_limit\": \"<integer>\",\n    \"retention\": \"<integer>\"\n  },\n  \"broker\": {\n    \"broker_id\": \"<string>\",\n    \"agency_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c2fb2af-c0a6-4070-a0a8-3ed950f9b820",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client\": {\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"revenue\": \"<number>\",\n    \"industry_code\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\"\n    }\n  },\n  \"policy\": {\n    \"insurance_product\": \"<string>\",\n    \"effective_date\": \"<date>\",\n    \"coverage_limit\": \"<integer>\",\n    \"retention\": \"<integer>\"\n  },\n  \"broker\": {\n    \"broker_id\": \"<string>\",\n    \"agency_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "621ad705-5901-4978-b4d8-df67d96d4ed8",
+              "name": "Submission blocked by Broker-of-Record clearance.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client\": {\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"revenue\": \"<number>\",\n    \"industry_code\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\"\n    }\n  },\n  \"policy\": {\n    \"insurance_product\": \"<string>\",\n    \"effective_date\": \"<date>\",\n    \"coverage_limit\": \"<integer>\",\n    \"retention\": \"<integer>\"\n  },\n  \"broker\": {\n    \"broker_id\": \"<string>\",\n    \"agency_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57c09a65-e538-4e60-a05f-f73532e0a876",
+          "name": "Find A Quote",
+          "request": {
+            "name": "Find A Quote",
+            "description": {
+              "content": "Retrieve current status and details for a quote.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes",
+                ":quote_identifier"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quote_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5290a75d-96bc-4676-9b1d-719e11fd7de8",
+              "name": "Quote details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    ":quote_identifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quote_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quote_identifier\": \"string\",\n  \"company_id\": \"string\",\n  \"status\": \"quote_pending\",\n  \"insurance_product\": \"MPL\",\n  \"premium\": 2900.811863155759,\n  \"coverage_limit\": 7721,\n  \"retention\": 9571,\n  \"effective_date\": \"2000-05-25\",\n  \"expiration_date\": \"1965-08-31\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1922fc4-eecc-4ed3-8edb-550a3644f16f",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    ":quote_identifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quote_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94892593-67ce-4697-81e5-057809f976bc",
+          "name": "Bind A Quote",
+          "request": {
+            "name": "Bind A Quote",
+            "description": {
+              "content": "Request binding of an open quote into an active policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes",
+                ":quote_identifier",
+                "bind"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quote_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"effective_date\": \"<date>\",\n  \"accepted_terms\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b8a46a4-822d-4e3d-bb68-66858d7339a2",
+              "name": "Bind request accepted; poll the quote for `policy_active`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    ":quote_identifier",
+                    "bind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quote_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effective_date\": \"<date>\",\n  \"accepted_terms\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d917289d-2847-4026-8f0f-dc839be17195",
+              "name": "Quote not in a bindable status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    ":quote_identifier",
+                    "bind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quote_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effective_date\": \"<date>\",\n  \"accepted_terms\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.at-bay.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "224d73ff-f4bc-45f8-8afc-8637495570d0",
+    "name": "At-Bay Partner Documents Quotes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.\n\nContact Support:\n Name: At-Bay Partnerships\n Email: partnerships@at-bay.com",
+      "type": "text/plain"
+    }
+  }
+}

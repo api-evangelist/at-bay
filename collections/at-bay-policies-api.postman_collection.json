@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "55c5e4f2-0187-432b-9adc-b7f772a24f67",
+      "name": "Policies",
+      "description": {
+        "content": "Manage bound policies including renewal behavior.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e8e663c-27d9-4e63-8dc5-5502407f3f63",
+          "name": "Pause Auto Renewal",
+          "request": {
+            "name": "Pause Auto Renewal",
+            "description": {
+              "content": "Change the allowed renewal type of the given policy to manual so no auto-renewal will be created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":policy_id",
+                "pause-auto-renewal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policy_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92866edb-16da-4648-bde6-56978102d3a6",
+              "name": "Auto-renewal paused.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policy_id",
+                    "pause-auto-renewal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.at-bay.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a599cad6-9634-4469-8162-62275f7df142",
+    "name": "At-Bay Partner Documents Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.\n\nContact Support:\n Name: At-Bay Partnerships\n Email: partnerships@at-bay.com",
+      "type": "text/plain"
+    }
+  }
+}

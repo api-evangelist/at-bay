@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "At-Bay Partner Documents Policies API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pause Auto Renewal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.at-bay.com/v2/policies/:policy_id/pause-auto-renewal",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Change the allowed renewal type of the given policy to manual so no auto-renewal will be created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
