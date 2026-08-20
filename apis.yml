@@ -35,6 +35,25 @@ tags:
   - Tech E&O
   - Professional Liability
   - MPL
+  - Managed Detection and Response
+  - MDR
+  - Security Monitoring
+  - Email Security
+  - Endpoint Security
+  - Incident Response
+  - Brokers
+  - Quoting
+  - Bindings
+  - Policy Lifecycle
+  - Webhook
+tags_raw:
+  - Insurance
+  - Cyber Insurance
+  - InsurSec
+  - Insurtech
+  - Tech E&O
+  - Professional Liability
+  - MPL
   - Managed Detection And Response
   - MDR
   - Security Monitoring
@@ -145,6 +164,8 @@ apis:
   humanURL: https://developers.at-bay.com/docs/getting-started
   baseURL: https://api.at-bay.com/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
