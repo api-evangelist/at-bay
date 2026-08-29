@@ -1,0 +1,35 @@
+slug: at-bay
+provider: At-Bay
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Insurance
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Quotes
+  spec_file: at-bay-quotes-api-openapi.yml
+  capability_id: BC-2110.60
+  capability_id_l1: BC-2110
+  capability_name: Quote & Submission Management
+  confidence: 0.85
+  evidence: '"REST API for At-Bay''s quote-to-bind-to-renew workflow"; operations "Create A Quote", "Find
+    A Quote", "Bind A Quote"'
+  reason: Operations create, retrieve and bind insurance quotes for cyber/E&O/MPL lines, which is submission
+    intake and quote-to-bind conversion — Quote & Submission Management under Insurance Distribution.
+    Binding also touches underwriting decisioning (BC-2130.40), hence not full confidence on the sub-capability.
+- tag: Policies
+  spec_file: at-bay-policies-api-openapi.yml
+  capability_id: BC-2140.30
+  capability_id_l1: BC-2140
+  capability_name: Policy Renewal Management
+  confidence: 0.78
+  evidence: POST /policies/{policy_id}/pause-auto-renewal  pauseAutoRenewal  Pause Auto Renewal
+  reason: The single operation controls auto-renewal of a bound insurance policy within At-Bay's 'quote-to-bind-to-renew
+    workflow', which is policy renewal administration.

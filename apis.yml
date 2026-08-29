@@ -195,6 +195,9 @@ apis:
   - type: JSONLD
     url: json-ld/at-bay-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/at-bay-capability-edges.yml
+    name: At-Bay Business Capability Map
   - type: AgenticAccess
     url: agentic-access/at-bay-agentic-access.yml
   - type: DomainSecurity
