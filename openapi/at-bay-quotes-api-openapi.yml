@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: At-Bay Partner Documents Quotes API
+  title: At-Bay Partner Quotes API
   version: '2.0'
   description: REST API for At-Bay's quote-to-bind-to-renew workflow across Surplus Cyber (CYB), Surplus Tech E&O (TEO), and Surplus Miscellaneous Professional Liability (MPL). Authenticated with a JWT bearer token. Quote creation is asynchronous — POST /quotes returns a quote_identifier that is polled via GET /quotes/{quote_identifier} every ~10 seconds until the status leaves `quote_pending`. Production submissions are subject to At-Bay's Broker-of-Record (BOR) clearance process; the demo host bypasses BOR.
   contact:
@@ -93,27 +93,25 @@ paths:
           description: Quote not in a bindable status.
 components:
   schemas:
-    BindRequest:
+    PolicyDetails:
       type: object
+      required:
+      - insurance_product
       properties:
+        insurance_product:
+          type: string
+          enum:
+          - CYB
+          - TEO
+          - MPL
+          description: CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus MPL.
         effective_date:
           type: string
           format: date
-        accepted_terms:
-          type: boolean
-    Client:
-      type: object
-      properties:
-        name:
-          type: string
-        domain:
-          type: string
-        revenue:
-          type: number
-        industry_code:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
+        coverage_limit:
+          type: integer
+        retention:
+          type: integer
     Quote:
       type: object
       properties:
@@ -153,6 +151,34 @@ components:
         expiration_date:
           type: string
           format: date
+    BindRequest:
+      type: object
+      properties:
+        effective_date:
+          type: string
+          format: date
+        accepted_terms:
+          type: boolean
+    Client:
+      type: object
+      properties:
+        name:
+          type: string
+        domain:
+          type: string
+        revenue:
+          type: number
+        industry_code:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Broker:
+      type: object
+      properties:
+        broker_id:
+          type: string
+        agency_id:
+          type: string
     QuoteAck:
       type: object
       properties:
@@ -175,32 +201,6 @@ components:
           $ref: '#/components/schemas/PolicyDetails'
         broker:
           $ref: '#/components/schemas/Broker'
-    Broker:
-      type: object
-      properties:
-        broker_id:
-          type: string
-        agency_id:
-          type: string
-    PolicyDetails:
-      type: object
-      required:
-      - insurance_product
-      properties:
-        insurance_product:
-          type: string
-          enum:
-          - CYB
-          - TEO
-          - MPL
-          description: CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus MPL.
-        effective_date:
-          type: string
-          format: date
-        coverage_limit:
-          type: integer
-        retention:
-          type: integer
     Address:
       type: object
       properties:
@@ -215,10 +215,10 @@ components:
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.
-    BadRequest:
-      description: Request payload validation failed.
     NotFound:
       description: Resource not found.
+    BadRequest:
+      description: Request payload validation failed.
   securitySchemes:
     bearerAuth:
       type: http
