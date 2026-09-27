@@ -92,26 +92,62 @@ paths:
         '409':
           description: Quote not in a bindable status.
 components:
+  responses:
+    NotFound:
+      description: Resource not found.
+    BadRequest:
+      description: Request payload validation failed.
+    Unauthorized:
+      description: Missing or invalid bearer token.
   schemas:
-    PolicyDetails:
+    Broker:
       type: object
-      required:
-      - insurance_product
       properties:
-        insurance_product:
+        broker_id:
           type: string
-          enum:
-          - CYB
-          - TEO
-          - MPL
-          description: CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus MPL.
+        agency_id:
+          type: string
+    BindRequest:
+      type: object
+      properties:
         effective_date:
           type: string
           format: date
-        coverage_limit:
-          type: integer
-        retention:
-          type: integer
+        accepted_terms:
+          type: boolean
+    QuoteRequest:
+      type: object
+      required:
+      - client
+      - policy
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+        policy:
+          $ref: '#/components/schemas/PolicyDetails'
+        broker:
+          $ref: '#/components/schemas/Broker'
+    QuoteAck:
+      type: object
+      properties:
+        quote_identifier:
+          type: string
+        company_id:
+          type: string
+        status:
+          type: string
+          example: quote_pending
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
     Quote:
       type: object
       properties:
@@ -151,14 +187,6 @@ components:
         expiration_date:
           type: string
           format: date
-    BindRequest:
-      type: object
-      properties:
-        effective_date:
-          type: string
-          format: date
-        accepted_terms:
-          type: boolean
     Client:
       type: object
       properties:
@@ -172,53 +200,25 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
-    Broker:
-      type: object
-      properties:
-        broker_id:
-          type: string
-        agency_id:
-          type: string
-    QuoteAck:
-      type: object
-      properties:
-        quote_identifier:
-          type: string
-        company_id:
-          type: string
-        status:
-          type: string
-          example: quote_pending
-    QuoteRequest:
+    PolicyDetails:
       type: object
       required:
-      - client
-      - policy
+      - insurance_product
       properties:
-        client:
-          $ref: '#/components/schemas/Client'
-        policy:
-          $ref: '#/components/schemas/PolicyDetails'
-        broker:
-          $ref: '#/components/schemas/Broker'
-    Address:
-      type: object
-      properties:
-        line1:
+        insurance_product:
           type: string
-        city:
+          enum:
+          - CYB
+          - TEO
+          - MPL
+          description: CYB = Surplus Cyber, TEO = Surplus Tech E&O, MPL = Surplus MPL.
+        effective_date:
           type: string
-        state:
-          type: string
-        zip:
-          type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
-    NotFound:
-      description: Resource not found.
-    BadRequest:
-      description: Request payload validation failed.
+          format: date
+        coverage_limit:
+          type: integer
+        retention:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http
