@@ -92,51 +92,7 @@ paths:
         '409':
           description: Quote not in a bindable status.
 components:
-  responses:
-    NotFound:
-      description: Resource not found.
-    BadRequest:
-      description: Request payload validation failed.
-    Unauthorized:
-      description: Missing or invalid bearer token.
   schemas:
-    Broker:
-      type: object
-      properties:
-        broker_id:
-          type: string
-        agency_id:
-          type: string
-    BindRequest:
-      type: object
-      properties:
-        effective_date:
-          type: string
-          format: date
-        accepted_terms:
-          type: boolean
-    QuoteRequest:
-      type: object
-      required:
-      - client
-      - policy
-      properties:
-        client:
-          $ref: '#/components/schemas/Client'
-        policy:
-          $ref: '#/components/schemas/PolicyDetails'
-        broker:
-          $ref: '#/components/schemas/Broker'
-    QuoteAck:
-      type: object
-      properties:
-        quote_identifier:
-          type: string
-        company_id:
-          type: string
-        status:
-          type: string
-          example: quote_pending
     Address:
       type: object
       properties:
@@ -147,6 +103,13 @@ components:
         state:
           type: string
         zip:
+          type: string
+    Broker:
+      type: object
+      properties:
+        broker_id:
+          type: string
+        agency_id:
           type: string
     Quote:
       type: object
@@ -187,6 +150,28 @@ components:
         expiration_date:
           type: string
           format: date
+    QuoteAck:
+      type: object
+      properties:
+        quote_identifier:
+          type: string
+        company_id:
+          type: string
+        status:
+          type: string
+          example: quote_pending
+    QuoteRequest:
+      type: object
+      required:
+      - client
+      - policy
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+        policy:
+          $ref: '#/components/schemas/PolicyDetails'
+        broker:
+          $ref: '#/components/schemas/Broker'
     Client:
       type: object
       properties:
@@ -200,6 +185,14 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
+    BindRequest:
+      type: object
+      properties:
+        effective_date:
+          type: string
+          format: date
+        accepted_terms:
+          type: boolean
     PolicyDetails:
       type: object
       required:
@@ -219,6 +212,13 @@ components:
           type: integer
         retention:
           type: integer
+  responses:
+    BadRequest:
+      description: Request payload validation failed.
+    NotFound:
+      description: Resource not found.
+    Unauthorized:
+      description: Missing or invalid bearer token.
   securitySchemes:
     bearerAuth:
       type: http
