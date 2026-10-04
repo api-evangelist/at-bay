@@ -91,20 +91,6 @@ paths:
           description: Secret updated.
 components:
   schemas:
-    WebhookRegistration:
-      type: object
-      required:
-      - url
-      - events
-      properties:
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
-            description: e.g. quote.updated, quote.bound, policy.activated, policy.expired.
     Webhook:
       type: object
       properties:
@@ -119,6 +105,20 @@ components:
         created_at:
           type: string
           format: date-time
+    WebhookRegistration:
+      type: object
+      required:
+      - url
+      - events
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            description: e.g. quote.updated, quote.bound, policy.activated, policy.expired.
   securitySchemes:
     bearerAuth:
       type: http
