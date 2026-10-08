@@ -88,3 +88,43 @@ plans:
         geo: US
         unit: 1
         price: 'Quoted'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units:
+  - negotiated
+  plans:
+  - name: Partner API Access
+    access: partner
+    model: negotiated
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Surplus Cyber Insurance
+    access: other
+    model: negotiated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Surplus Tech E&O Insurance
+    access: other
+    model: negotiated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Surplus MPL Insurance
+    access: other
+    model: negotiated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
