@@ -1,4 +1,4 @@
-# At-Bay (at-bay)
+# At-Bay
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,100 +66,163 @@
 
 At-Bay is an InsurSec company that combines cyber insurance with proactive security monitoring for businesses. Headquartered in New York with offices in San Francisco and Tel Aviv, At-Bay underwrites Surplus Cyber, Surplus Tech E&O, and Surplus Miscellaneous Professional Liability (MPL) coverage and bundles them with the At-Bay Stance security platform (advisory, fraud defense, incident response) and 24/7 Managed Detection and Response (MDR) across endpoint, email (MXDR), and multi-vector surfaces. At-Bay distributes through a network of independent brokers and partners and exposes a production-grade REST Partner API (v2) that lets brokerage platforms, digital distributors, and agency management systems quote, customize, bind, renew, retrieve documents, and receive webhook callbacks for the full policy lifecycle. Demo environment at api-demo.at-bay.com lets partners integrate without going through Broker of Record clearance.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/at-bay/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/at-bay/refs/heads/main/apis.yml)
+**Areas:** Insurance · Cyber Insurance · InsurSec · Insurtech · Tech E&O · Professional Liability · MPL · Managed Detection and Response · MDR · Security Monitoring · Email Security · Endpoint Security
 
-## Scope
+## At-Bay on APIs.io
 
-- **Type:** Index
-- **Position:** Provider
-- **Access:** 3rd-Party
+Everything profiled for At-Bay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/at-bay/](https://apis.io/providers/at-bay/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Insurance
-- Cyber Insurance
-- InsurSec
-- Insurtech
-- Tech E&O
-- Professional Liability
-- MPL
-- Managed Detection And Response
-- MDR
-- Security Monitoring
-- Email Security
-- Endpoint Security
-- Incident Response
-- Brokers
-- Quoting
-- Binding
-- Policy Lifecycle
-- Webhooks
+- [At-Bay Documents API](https://apis.io/apis/at-bay/at-bay-documents-api/) — Upload submission documents and download generated policy documents.
+- [At-Bay Health API](https://apis.io/apis/at-bay/at-bay-health-api/) — API health check.
+- [At-Bay Policies API](https://apis.io/apis/at-bay/at-bay-policies-api/) — Manage bound policies including renewal behavior.
+- [At-Bay Quotes API](https://apis.io/apis/at-bay/at-bay-quotes-api/) — Create, poll, and bind insurance quotes.
+- [At-Bay Webhooks API](https://apis.io/apis/at-bay/at-bay-webhooks-api/) — Register webhook endpoints for asynchronous status callbacks.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### At-Bay Partner API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-End-to-end Partner REST API (v2) for the At-Bay quote-to-bind-to-renew workflow. Supports three insurance products selected via the `insurance_product` field on the policy object: CYB (Surplus Cyber), TEO (Surplus Tech E&O), and MPL (Surplus MPL). Core operations: POST /quotes to submit a new quote, GET /quotes/{quote_identifier} polled every 10 seconds until status leaves `quote_pending` (typical p90 under 40 seconds), bind/referral/update operations, document upload and download, auto-renewal pause, plus webhook registration and verification for asynchronous status callbacks. JWT bearer authentication; production at api.at-bay.com/v2 and demo at api-demo.at-bay.com/v2. Production submissions are subject to Broker-of-Record (BOR) clearance — duplicate domains/addresses within 60 days are blocked; the demo environment bypasses BOR.
+- [At Bay Agentic Access](https://apis.io/agentic-access/at-bay/at-bay-agentic-access/)
 
-- **Human URL:** [https://developers.at-bay.com/docs/getting-started](https://developers.at-bay.com/docs/getting-started)
-- **Base URL:** `https://api.at-bay.com/v2`
+#### JSON Schema (2)
 
-#### Tags
+The data models the API reads and writes.
 
-- Insurance
-- Cyber Insurance
-- Quoting
-- Binding
-- Policy Lifecycle
+- [At-Bay Policy](https://apis.io/schemas/at-bay/at-bay-policy/)
+- [At-Bay Quote](https://apis.io/schemas/at-bay/at-bay-quote/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://developers.at-bay.com/docs/getting-started)
-- [Reference](https://developers.at-bay.com/reference)
-- [L L Ms](https://developers.at-bay.com/llms.txt)
-- [OpenAPI](openapi/at-bay-partner-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/at-bay-partner-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/at-bay-partner-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/at-bay-quote-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/at-bay-policy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/at-bay-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [At Bay Quote Structure](https://apis.io/json-structure/at-bay/at-bay-quote-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [At Bay Context](https://apis.io/jsonld/at-bay/at-bay-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [At Bay Vocabulary](https://apis.io/vocabularies/at-bay/at-bay-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [At Bay Create Quote Example](https://apis.io/examples/at-bay/at-bay-create-quote-example/)
+- [At Bay Get Quote Example](https://apis.io/examples/at-bay/at-bay-get-quote-example/)
+- [At Bay Register Webhook Example](https://apis.io/examples/at-bay/at-bay-register-webhook-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [At-Bay Partner Documents API](https://apis.io/collections/at-bay/open-at-bay-documents-api/)
+- [At-Bay Partner Documents Health API](https://apis.io/collections/at-bay/open-at-bay-health-api/)
+- [At-Bay Partner API](https://apis.io/collections/at-bay/open-at-bay-partner-api/)
+- [At-Bay Partner Documents Policies API](https://apis.io/collections/at-bay/open-at-bay-policies-api/)
+- [At-Bay Partner Documents Quotes API](https://apis.io/collections/at-bay/open-at-bay-quotes-api/)
+- [At-Bay Partner Documents Webhooks API](https://apis.io/collections/at-bay/open-at-bay-webhooks-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [At-Bay — jsonschema rules](https://apis.io/rules/at-bay/at-bay-jsonschema-spectral-rules/)
+- [At-Bay API Rules](https://apis.io/rules/at-bay/at-bay-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [At Bay Authentication](https://apis.io/security/at-bay/at-bay-authentication/)
+- [At Bay Domain Security](https://apis.io/security/at-bay/at-bay-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [At Bay Plans Pricing](https://apis.io/plans/at-bay/at-bay-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [At Bay Rate Limits](https://apis.io/rate-limits/at-bay/at-bay-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [At Bay Finops](https://apis.io/finops/at-bay/at-bay-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.at-bay.com)
-- [Developer Portal](https://developers.at-bay.com)
 - [Documentation](https://developers.at-bay.com/docs/getting-started)
-- [Reference](https://developers.at-bay.com/reference)
-- [L L Ms](https://developers.at-bay.com/llms.txt)
-- [Partnerships](https://www.at-bay.com/about/partnerships/)
-- [Brokers](https://www.at-bay.com/brokers/)
-- [Broker Platform](https://www.at-bay.com/brokers/platform/)
-- [Insurance](https://www.at-bay.com/insurance/)
-- [Cyber Insurance](https://www.at-bay.com/insurance/cyber/)
-- [Tech E O](https://www.at-bay.com/insurance/tech-eo/)
-- [M P L](https://www.at-bay.com/insurance/mpl/)
-- [Stance](https://www.at-bay.com/stance/)
-- [M D R](https://www.at-bay.com/stance/mdr/)
-- [Incident Response](https://www.at-bay.com/stance/incident-response/)
-- [Newsroom](https://www.at-bay.com/news/)
-- [About](https://www.at-bay.com/about/)
-- [Careers](https://www.at-bay.com/careers/)
-- [Contact](https://www.at-bay.com/contact/)
-- [Login](https://platform.at-bay.com/)
-- [Git Hub](https://github.com/at-bay)
-- [LinkedIn](https://www.linkedin.com/company/at-bay-insurance)
-- [Twitter](https://twitter.com/AtBayInsurance)
-- [Plans](plans/at-bay-plans-pricing.yml)
-- [Rate Limits](rate-limits/at-bay-rate-limits.yml)
-- [Fin Ops](finops/at-bay-finops.yml)
-- [Vocabulary](vocabulary/at-bay-vocabulary.yml)
+- [Blog](https://www.at-bay.com/about/newsroom/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 34.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.0 |
+| Contract quality | 60.7 |
+| Contract governance | 27.3 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 14.5 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 14.9** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/at-bay/](https://apis.io/providers/at-bay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for At-Bay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/at-bay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
